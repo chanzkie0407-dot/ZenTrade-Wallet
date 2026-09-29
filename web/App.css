@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #1a1a2e, #16213e);
+  min-height: 100vh;
+  color: #fff;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  padding: 20px 0;
+}
+
+header h1 {
+  font-size: 24px;
+  margin-bottom: 5px;
+}
+
+.status {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.balance-card, .form-card, .history-card {
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.label {
+  text-align: center;
+  font-size: 16px;
+  opacity: 0.7;
+}
+
+.amount {
+  text-align: center;
+  font-size: 42px;
+  font-weight: bold;
+  color: #2ecc71;
+  margin: 10px 0 20px;
+}
+
+.btn-primary, .btn-secondary {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: scale(1.02);
+}
+
+.btn-primary {
+  background: #2ecc71;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.btn-secondary {
+  background: rgba(255,255,255,0.15);
+  color: #fff;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  font-size: 15px;
+}
+
+input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.limit {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.empty {
+  text-align: center;
+  opacity: 0.5;
+  padding: 20px;
+}
+
+ul {
+  list-style: none;
+}
+
+li {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.tx-amount {
+  font-weight: bold;
+  color: #e74c3c;
+}
+
+.tx-name {
+  flex: 1;
+  margin: 0 10px;
+}
+
+.tx-date {
+  font-size: 12px;
+  opacity: 0.5;
+}
+
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  opacity: 0.5;
+}
