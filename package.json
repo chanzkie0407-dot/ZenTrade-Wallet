@@ -1,0 +1,11 @@
+{
+  "name": "smart-wallet",
+  "version": "1.0.0",
+  "description": "Offline-first ZenTrade Wallet for Philippines",
+  "main": "App.js",
+  "dependencies": {
+    "react": "18.2.0",
+    "react-native": "0.74.0",
+    "@react-native-async-storage/async-storage": "^1.23.1"
+  }
+}
