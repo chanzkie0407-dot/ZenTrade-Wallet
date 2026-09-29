@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fil">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZenTrade Wallet</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
+    body{background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;color:#fff;padding:20px}
+    .container{max-width:480px;margin:0 auto}
+    h1{text-align:center;margin:20px 0}
+    .card{background:rgba(255,255,255,.08);border-radius:20px;padding:25px;margin-bottom:20px}
+    .amount{font-size:42px;font-weight:bold;color:#2ecc71;text-align:center;margin:10px 0}
+    input{width:100%;padding:14px;margin:8px 0;border:none;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font-size:15px}
+    button{width:100%;padding:14px;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
+    .btn-primary{background:#2ecc71;color:#fff}
+    .btn-secondary{background:rgba(255,255,255,.15);color:#fff}
+    .tx-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💰 ZenTrade Wallet</h1>
+    
+    <div class="card">
+      <p style="text-align:center;opacity:.7">Laman ng Pitaka</p>
+      <p class="amount" id="balance">₱ 0.00</p>
+      <button class="btn-secondary" onclick="addFunds()">➕ Maglagay ng Pera</button>
+    </div>
+
+    <div class="card">
+      <h3>💳 Magbayad</h3>
+      <input type="text" id="recipientId" placeholder="ID ng Tatanggap">
+      <input type="text" id="recipientName" placeholder="Pangalan ng Tatanggap">
+      <input type="number" id="amount" placeholder="Halaga">
+      <button class="btn-primary" onclick="sendPayment()">Kumpirmahin ang Bayad</button>
+      <p style="font-size:12px;opacity:.6;text-align:center;margin-top:10px">Limit: ₱500/bawat bayad</p>
+    </div>
+
+    <div class="card">
+      <h3>📋 Talaan</h3>
+      <div id="history"></div>
+    </div>
+  </div>
+
+  <script>
+    let balance = parseFloat(localStorage.getItem('wallet_balance') || 0);
+    let transactions = JSON.parse(localStorage.getItem('wallet_transactions') || '[]');
+    
+    function updateUI() {
+      document.getElementById('balance').textContent = '₱ ' + balance.toFixed(2);
+      const history = document.getElementById('history');
+      history.innerHTML = transactions.length === 0 
+        ? '<p style="opacity:.5;text-align:center">Wala pang talaan</p>'
+        : transactions.map(tx => `
+          <div class="tx-item">
+            <span>-₱${tx.amount.toFixed(2)}</span>
+            <span>${tx.name}</span>
+            <span style="opacity:.5;font-size:12px">${tx.date}</span>
+          </div>
+        `).join('');
+    }
+    
+    function addFunds() {
+      const amt = prompt('Magkano ang ilalagay?');
+      if (!amt) return;
+      balance += parseFloat(amt);
+      localStorage.setItem('wallet_balance', balance);
+      updateUI();
+    }
+    
+    function sendPayment() {
+      const id = document.getElementById('recipientId').value.trim();
+      const name = document.getElementById('recipientName').value.trim();
+      const amt = parseFloat(document.getElementById('amount').value);
+      
+      if (!id || !name || !amt) return alert('Punan lahat ng patlang');
+      if (amt > 500) return alert('Hanggang ₱500 lang bawat bayad');
+      if (amt > balance) return alert('Kulang ang laman ng pitaka');
+      
+      balance -= amt;
+      transactions.unshift({
+        amount: amt,
+        name: name,
+        date: new Date().toLocaleString()
+      });
+      
+      localStorage.setItem('wallet_balance', balance);
+      localStorage.setItem('wallet_transactions', JSON.stringify(transactions));
+      
+      alert(`✅ Nakabayad ng ₱${amt} kay ${name}!`);
+      document.getElementById('recipientId').value = '';
+      document.getElementById('recipientName').value = '';
+      document.getElementById('amount').value = '';
+      updateUI();
+    }
+    
+    updateUI();
+  </script>
+</body>
+</html>
