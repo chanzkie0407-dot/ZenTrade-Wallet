@@ -13,27 +13,26 @@
     }
 
     :root {
-      --primary: #00A651;
-      --primary-light: #E8F5E9;
-      --primary-dark: #008C44;
-      --accent: #F5F5F7;
+      --primary: #0070F3;
+      --primary-dark: #005ED6;
+      --primary-light: #E6F0FF;
+      --secondary: #FFFFFF;
       --text-dark: #1D1D1F;
       --text-light: #86868B;
-      --white: #FFFFFF;
+      --bg: #F5F5F7;
+      --card: #FFFFFF;
       --border: #E5E5E7;
       --danger: #FF3B30;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-      --shadow-soft: 0 2px 10px rgba(0, 166, 81, 0.08);
-      --grad: linear-gradient(135deg, #00A651, #34C759);
+      --success: #34C759;
+      --grad: linear-gradient(135deg, #0070F3, #0091FF);
     }
 
     body {
-      background: #F9FAFB;
+      background: var(--bg);
       color: var(--text-dark);
       min-height: 100vh;
       display: flex;
       justify-content: center;
-      padding: 20px;
     }
 
     .app-container {
@@ -42,27 +41,22 @@
       min-height: 100vh;
       position: relative;
       overflow: hidden;
-      background: var(--white);
-      box-shadow: 0 0 40px rgba(0,0,0,0.05);
+      background: var(--bg);
     }
 
-    /* GoTyme-style Slide Transitions */
+    /* Screen Transitions */
     .screen {
       position: absolute;
       width: 100%;
       height: 100%;
       min-height: 100vh;
       display: none;
-      animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      background: var(--white);
+      animation: slideInRight 0.3s ease;
+      background: var(--bg);
     }
 
     .screen.active {
       display: block;
-    }
-
-    .screen.pop {
-      animation: slideOutLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @keyframes slideInRight {
@@ -87,19 +81,18 @@
 
     /* Header */
     .header {
-      padding: 60px 24px 20px;
+      padding: 50px 20px 20px;
       text-align: center;
     }
 
     .logo {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 700;
       color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      letter-spacing: -0.5px;
     }
 
     .logo span {
@@ -109,12 +102,12 @@
     .tagline {
       color: var(--text-light);
       margin-top: 6px;
-      font-size: 14px;
+      font-size: 13px;
     }
 
     /* Welcome Screen */
     .welcome-card {
-      padding: 60px 32px 40px;
+      padding: 60px 30px 40px;
       text-align: center;
     }
 
@@ -124,10 +117,9 @@
     }
 
     .welcome-title {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 700;
       margin-bottom: 12px;
-      color: var(--text-dark);
     }
 
     .welcome-desc {
@@ -140,39 +132,35 @@
     /* Buttons */
     .btn {
       width: 100%;
-      padding: 16px;
+      padding: 15px;
       border: none;
-      border-radius: 14px;
+      border-radius: 12px;
       font-size: 16px;
       font-weight: 600;
       cursor: pointer;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
       margin-bottom: 12px;
     }
 
     .btn-primary {
       background: var(--grad);
       color: white;
-      box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
+      box-shadow: 0 4px 12px rgba(0, 112, 243, 0.25);
     }
 
     .btn-primary:hover {
       transform: translateY(-1px);
-      box-shadow: 0 6px 18px rgba(0, 166, 81, 0.35);
-    }
-
-    .btn-primary:active {
-      transform: scale(0.98);
+      box-shadow: 0 6px 16px rgba(0, 112, 243, 0.35);
     }
 
     .btn-secondary {
-      background: var(--accent);
-      color: var(--text-dark);
-      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--primary);
+      border: 1px solid var(--primary);
     }
 
     .btn-secondary:hover {
-      background: #EBEBEB;
+      background: var(--primary-light);
     }
 
     .btn-back {
@@ -180,8 +168,7 @@
       color: var(--text-light);
       border: none;
       width: auto;
-      padding: 10px 0;
-      margin: 10px 24px 0;
+      padding: 10px 20px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -195,7 +182,7 @@
 
     /* Inputs */
     .input-group {
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
 
     label {
@@ -208,19 +195,19 @@
 
     input, select {
       width: 100%;
-      padding: 16px 18px;
+      padding: 14px 16px;
       border: 1px solid var(--border);
-      border-radius: 12px;
-      background: var(--white);
+      border-radius: 10px;
+      background: var(--card);
       color: var(--text-dark);
-      font-size: 16px;
+      font-size: 15px;
       outline: none;
       transition: all 0.2s ease;
     }
 
     input:focus, select:focus {
       border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
+      box-shadow: 0 0 0 3px rgba(0, 112, 243, 0.1);
     }
 
     .hint {
@@ -231,12 +218,12 @@
 
     .upload-box {
       border: 2px dashed var(--border);
-      border-radius: 12px;
-      padding: 28px 20px;
+      border-radius: 10px;
+      padding: 24px 16px;
       text-align: center;
       cursor: pointer;
       transition: all 0.2s ease;
-      background: var(--accent);
+      background: var(--card);
     }
 
     .upload-box:hover, .upload-box.active {
@@ -245,7 +232,7 @@
     }
 
     .upload-icon {
-      font-size: 28px;
+      font-size: 26px;
       margin-bottom: 6px;
     }
 
@@ -263,82 +250,116 @@
       line-height: 1.5;
     }
 
-    /* Dashboard */
+    /* GCash-Style Dashboard */
     .dash-header {
-      padding: 60px 24px 10px;
+      background: var(--grad);
+      padding: 50px 20px 30px;
+      color: white;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .greeting-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 20px;
     }
 
-    .user-greeting {
+    .greeting-text {
       font-size: 14px;
-      color: var(--text-light);
+      opacity: 0.9;
     }
 
     .user-name {
       font-size: 20px;
       font-weight: 700;
-      color: var(--text-dark);
-    }
-
-    .user-phone {
-      font-size: 13px;
-      color: var(--text-light);
-      margin-top: 2px;
     }
 
     .logout-btn {
-      background: var(--accent);
+      background: rgba(255,255,255,0.2);
       border: none;
-      color: var(--text-dark);
-      font-size: 14px;
+      color: white;
+      font-size: 13px;
+      padding: 8px 12px;
+      border-radius: 8px;
       cursor: pointer;
-      padding: 10px 14px;
-      border-radius: 10px;
-      font-weight: 500;
+      backdrop-filter: blur(4px);
     }
 
     .logout-btn:hover {
-      background: #FEE;
-      color: var(--danger);
+      background: rgba(255,255,255,0.3);
     }
 
     .balance-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 32px 24px;
-      margin: 20px 24px;
-      box-shadow: var(--shadow-soft);
-      text-align: center;
-      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.15);
+      border-radius: 16px;
+      padding: 24px 20px;
+      backdrop-filter: blur(8px);
     }
 
-    .balance-card:hover {
-      box-shadow: 0 8px 30px rgba(0, 166, 81, 0.12);
-      transform: translateY(-2px);
-    }
-
-    .balance-label {
-      font-size: 14px;
-      color: var(--text-light);
+    .balance-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 8px;
     }
 
-    .balance-amount {
-      font-size: 40px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: var(--text-dark);
+    .balance-label {
+      font-size: 13px;
+      opacity: 0.9;
     }
 
-    /* Quick Actions */
+    .eye-btn {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    .eye-btn:hover {
+      opacity: 1;
+    }
+
+    .balance-amount {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .balance-amount.hidden-text {
+      filter: blur(6px);
+      user-select: none;
+    }
+
+    .cashin-btn {
+      margin-top: 16px;
+      background: white;
+      color: var(--primary);
+      border: none;
+      padding: 10px 16px;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      width: 100%;
+      transition: all 0.2s ease;
+    }
+
+    .cashin-btn:hover {
+      background: rgba(255,255,255,0.9);
+    }
+
+    /* Quick Actions — GCash Style Grid */
+    .actions-section {
+      padding: 20px 16px;
+    }
+
     .actions-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 16px 8px;
-      padding: 0 24px 30px;
+      gap: 20px 8px;
     }
 
     .action-btn {
@@ -355,44 +376,47 @@
     }
 
     .action-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
       background: var(--primary-light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 22px;
+      color: var(--primary);
       transition: all 0.2s ease;
     }
 
     .action-btn:hover .action-icon {
       background: var(--grad);
       color: white;
-      transform: scale(1.08);
     }
 
     .action-label {
       font-size: 11px;
       color: var(--text-dark);
       font-weight: 500;
+      text-align: center;
+      line-height: 1.2;
     }
 
-    /* Sections */
+    /* Transaction Section */
     .section {
-      background: var(--white);
-      border-top: 8px solid #F9FAFB;
-      padding: 24px;
+      background: var(--card);
+      margin: 10px 16px 20px;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.04);
     }
 
     .section-title {
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 700;
       margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      color: var(--text-dark);
     }
 
     .view-all {
@@ -406,9 +430,8 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid var(--accent);
-      transition: background 0.2s ease;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
     }
 
     .tx-item:last-child {
@@ -422,20 +445,20 @@
     }
 
     .tx-icon {
-      width: 40px;
-      height: 40px;
+      width: 38px;
+      height: 38px;
       border-radius: 10px;
-      background: var(--accent);
+      background: var(--primary-light);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 16px;
+      color: var(--primary);
     }
 
     .tx-name {
       font-size: 14px;
       font-weight: 600;
-      color: var(--text-dark);
     }
 
     .tx-meta {
@@ -454,7 +477,7 @@
     }
 
     .tx-amount.positive {
-      color: var(--primary);
+      color: var(--success);
     }
 
     /* Modal */
@@ -466,8 +489,7 @@
       align-items: flex-end;
       justify-content: center;
       z-index: 100;
-      padding: 0;
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(4px);
     }
 
     .modal-overlay.active {
@@ -476,45 +498,43 @@
     }
 
     .modal {
-      background: var(--white);
+      background: var(--card);
       width: 100%;
       max-width: 430px;
-      border-radius: 24px 24px 0 0;
-      padding: 28px 24px;
-      animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 20px 20px 0 0;
+      padding: 24px 20px;
+      animation: slideUp 0.3s ease;
       max-height: 85vh;
       overflow-y: auto;
     }
 
-    .modal-title {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      text-align: center;
-      color: var(--text-dark);
-    }
-
     .modal-close {
       text-align: right;
-      margin-bottom: -15px;
+      margin-bottom: -10px;
       cursor: pointer;
       color: var(--text-light);
       font-size: 22px;
     }
 
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
     .error-text {
       color: var(--danger);
       font-size: 13px;
-      margin-top: 12px;
+      margin-top: 10px;
       text-align: center;
     }
 
     .success-text {
-      color: var(--primary);
+      color: var(--success);
       font-size: 13px;
-      margin-top: 12px;
+      margin-top: 10px;
       text-align: center;
-      font-weight: 500;
     }
 
     .hidden {
@@ -522,7 +542,7 @@
     }
 
     .form-container {
-      padding: 10px 24px 30px;
+      padding: 10px 20px 30px;
     }
   </style>
 </head>
@@ -604,38 +624,60 @@
       </div>
     </div>
 
-    <!-- ============= DASHBOARD SCREEN ============= -->
+    <!-- ============= GCash-STYLE DASHBOARD ============= -->
     <div id="screen-dashboard" class="screen">
       <div class="dash-header">
-        <div>
-          <div class="user-greeting">Kamusta,</div>
-          <div class="user-name" id="user-display-name">—</div>
-          <div class="user-phone" id="user-display-phone">—</div>
+        <div class="greeting-row">
+          <div>
+            <div class="greeting-text">Kamusta,</div>
+            <div class="user-name" id="user-display-name">—</div>
+          </div>
+          <button class="logout-btn" onclick="doLogout()">🚪 Labas</button>
         </div>
-        <button class="logout-btn" onclick="doLogout()">Labas</button>
+        <div class="balance-card">
+          <div class="balance-label-row">
+            <span class="balance-label">Available Balance</span>
+            <button class="eye-btn" id="eye-toggle" onclick="toggleBalance()">👁️</button>
+          </div>
+          <div class="balance-amount" id="dash-balance">₱ 0.00</div>
+          <button class="cashin-btn" onclick="openModal('fund')">➕ Cash In</button>
+        </div>
       </div>
 
-      <div class="balance-card">
-        <div class="balance-label">Laman ng Pitaka</div>
-        <div class="balance-amount" id="dash-balance">₱ 0.00</div>
-      </div>
-
-      <div class="actions-grid">
-        <div class="action-btn" onclick="openModal('fund')">
-          <div class="action-icon">➕</div>
-          <span class="action-label">Maglagay</span>
-        </div>
-        <div class="action-btn" onclick="openModal('pay')">
-          <div class="action-icon">💳</div>
-          <span class="action-label">Magbayad</span>
-        </div>
-        <div class="action-btn" onclick="openModal('history')">
-          <div class="action-icon">📋</div>
-          <span class="action-label">Talaan</span>
-        </div>
-        <div class="action-btn" onclick="alert('Available soon!')">
-          <div class="action-icon">⚙️</div>
-          <span class="action-label">Settings</span>
+      <div class="actions-section">
+        <div class="actions-grid">
+          <div class="action-btn" onclick="openModal('pay')">
+            <div class="action-icon">➡️</div>
+            <span class="action-label">Send</span>
+          </div>
+          <div class="action-btn" onclick="openModal('fund')">
+            <div class="action-icon">📱</div>
+            <span class="action-label">Load</span>
+          </div>
+          <div class="action-btn" onclick="openModal('transfer')">
+            <div class="action-icon">🏦</div>
+            <span class="action-label">Transfer</span>
+          </div>
+          <div class="action-btn" onclick="openModal('bills')">
+            <div class="action-icon">📄</div>
+            <span class="action-label">Bills</span>
+          </div>
+          <div class="action-btn" onclick="alert('Available soon!')">
+            <div class="action-icon">🐷</div>
+            <span class="action-label">GSave</span>
+          </div>
+          <div class="action-btn" onclick="alert('Available soon!')">
+            <div class="action-icon">💳</div>
+            <span class="action-label">Cards</span>
+          </div>
+          <div class="action-btn" onclick="alert('Available soon!')">
+            <div class="action-icon">🎁</div>
+            <span class="action-label">Rewards</span>
+          </div>
+          <div class="action-btn" onclick="alert('Available soon!')">
+            <div class="action-icon">⚙️</div>
+            <span class="action-label">Settings</span>
+          </div>
         </div>
       </div>
 
@@ -648,13 +690,13 @@
       </div>
     </div>
 
-    <!-- ============= MODAL: FUND ============= -->
+    <!-- ============= MODAL: FUND / CASH IN ============= -->
     <div id="modal-fund" class="modal-overlay">
       <div class="modal">
         <span class="modal-close" onclick="closeModal('fund')">✕</span>
-        <h3 class="modal-title">➕ Maglagay ng Pera</h3>
+        <h3 class="modal-title">➕ Cash In</h3>
         <div class="input-group">
-          <label>Piliin ang Pinagmulan</label>
+          <label>Mula saan</label>
           <select id="fund-source">
             <optgroup label="Mga Bangko">
               <option value="BPI">BPI</option>
@@ -663,18 +705,16 @@
               <option value="Landbank">Landbank</option>
               <option value="GoTyme">GoTyme Bank</option>
               <option value="UnionBank">UnionBank</option>
-              <option value="PNB">Philippine National Bank</option>
             </optgroup>
             <optgroup label="E-Wallet">
               <option value="GCash">GCash</option>
               <option value="Maya">Maya</option>
-              <option value="Coins.ph">Coins.ph</option>
-              <option value="SeaBank">SeaBank</option>
+              <option value="Over-the-Counter">Over-the-Counter</option>
             </optgroup>
           </select>
         </div>
         <div class="input-group">
-          <label>Halagang ilalagay</label>
+          <label>Halaga</label>
           <input type="number" id="fund-amount" placeholder="Hal. 500">
         </div>
         <p id="fund-error" class="error-text hidden"></p>
@@ -682,33 +722,95 @@
       </div>
     </div>
 
-    <!-- ============= MODAL: PAY ============= -->
+    <!-- ============= MODAL: SEND / PAY ============= -->
     <div id="modal-pay" class="modal-overlay">
       <div class="modal">
         <span class="modal-close" onclick="closeModal('pay')">✕</span>
-        <h3 class="modal-title">💳 Magbayad</h3>
-        <div class="input-group">
-          <label>Piliin ang Padadalhan</label>
-          <select id="pay-method">
-            <option value="wallet">ZenTrade Wallet</option>
-            <option value="bank">Bangko</option>
-            <option value="ewallet">Ibang E-Wallet</option>
-          </select>
-        </div>
+        <h3 class="modal-title">➡️ Send Money</h3>
         <div class="input-group">
           <label>Numero ng Tatanggap</label>
-          <input type="text" id="pay-phone" placeholder="Numero">
+          <input type="text" id="pay-phone" placeholder="Hal. 09171234567">
         </div>
         <div class="input-group">
           <label>Pangalan ng Tatanggap</label>
-          <input type="text" id="pay-name" placeholder="Pangalan">
+          <input type="text" id="pay-name" placeholder="Buong pangalan">
         </div>
         <div class="input-group">
           <label>Halaga</label>
           <input type="number" id="pay-amount" placeholder="Ilagay ang halaga">
         </div>
+        <div class="input-group">
+          <label>Paalala (Opsyonal)</label>
+          <input type="text" id="pay-note" placeholder="Dahilan ng pagpadala">
+        </div>
         <p id="pay-error" class="error-text hidden"></p>
-        <button class="btn btn-primary" onclick="confirmPay()">Kumpirmahin ang Bayad</button>
+        <button class="btn btn-primary" onclick="confirmPay()">Kumpirmahin ang Pagpadala</button>
+      </div>
+    </div>
+
+    <!-- ============= MODAL: TRANSFER ============= -->
+    <div id="modal-transfer" class="modal-overlay">
+      <div class="modal">
+        <span class="modal-close" onclick="closeModal('transfer')">✕</span>
+        <h3 class="modal-title">🏦 Bank Transfer</h3>
+        <div class="input-group">
+          <label>Piliin ang Bangko</label>
+          <select id="bank-name">
+            <option value="BPI">BPI</option>
+            <option value="BDO">BDO Unibank</option>
+            <option value="Metrobank">Metrobank</option>
+            <option value="Landbank">Landbank</option>
+            <option value="UnionBank">UnionBank</option>
+            <option value="PNB">Philippine National Bank</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Account Number</label>
+          <input type="text" id="bank-acc" placeholder="Account number">
+        </div>
+        <div class="input-group">
+          <label>Pangalan ng May-ari</label>
+          <input type="text" id="bank-acc-name" placeholder="Buong pangalan">
+        </div>
+        <div class="input-group">
+          <label>Halaga</label>
+          <input type="number" id="bank-amount" placeholder="Ilagay ang halaga">
+        </div>
+        <p id="bank-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" onclick="confirmTransfer()">Kumpirmahin</button>
+      </div>
+    </div>
+
+    <!-- ============= MODAL: BILLS ============= -->
+    <div id="modal-bills" class="modal-overlay">
+      <div class="modal">
+        <span class="modal-close" onclick="closeModal('bills')">✕</span>
+        <h3 class="modal-title">📄 Pay Bills</h3>
+        <div class="input-group">
+          <label>Piliin ang Kategorya</label>
+          <select id="bill-cat" onchange="updateBillerList()">
+            <option value="electric">Kuryente</option>
+            <option value="water">Tubig</option>
+            <option value="internet">Internet</option>
+            <option value="telco">Telepono</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Piliin ang Nagtutustos</label>
+          <select id="biller-name">
+            <option value="">— Pumili muna —</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>Account / Reference Number</label>
+          <input type="text" id="bill-ref" placeholder="Reference number">
+        </div>
+        <div class="input-group">
+          <label>Halaga</label>
+          <input type="number" id="bill-amount" placeholder="Halaga ng bayarin">
+        </div>
+        <p id="bill-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" onclick="confirmBill()">Magbayad</button>
       </div>
     </div>
 
@@ -724,7 +826,7 @@
   </div>
 
   <script>
-    // ========== HELPER: PROPER PESO FORMAT ==========
+    // ========== HELPER: PESO FORMAT ==========
     function formatPeso(amount) {
       return '₱ ' + Number(amount).toLocaleString('en-PH', {
         minimumFractionDigits: 2,
@@ -732,9 +834,24 @@
       });
     }
 
+    // ========== BALANCE VISIBILITY TOGGLE ==========
+    let balanceHidden = false;
+    function toggleBalance() {
+      balanceHidden = !balanceHidden;
+      const el = document.getElementById('dash-balance');
+      const btn = document.getElementById('eye-toggle');
+      if (balanceHidden) {
+        el.classList.add('hidden-text');
+        btn.textContent = '🙈';
+      } else {
+        el.classList.remove('hidden-text');
+        btn.textContent = '👁️';
+      }
+    }
+
     // ========== SESSION TIMEOUT — 5 MINUTES ==========
     let inactivityTimer;
-    const INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 minutes
+    const INACTIVITY_LIMIT = 5 * 60 * 1000;
 
     function resetInactivityTimer() {
       clearTimeout(inactivityTimer);
@@ -746,7 +863,6 @@
       }, INACTIVITY_LIMIT);
     }
 
-    // Monitor user activity
     ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(evt => {
       document.addEventListener(evt, resetInactivityTimer, { passive: true });
     });
@@ -761,15 +877,14 @@
     // State
     let currentUser = null;
 
-    // Screen Management — GoTyme-style
+    // Screen Management
     let screenStack = ['welcome'];
 
     function showScreen(id) {
       const current = document.querySelector('.screen.active');
       if (current) {
         current.classList.remove('active');
-        current.classList.add('pop');
-        setTimeout(() => current.classList.remove('pop'), 350);
+        setTimeout(() => current.classList.remove('pop'), 300);
       }
       document.getElementById(`screen-${id}`).classList.add('active');
       if (screenStack[screenStack.length - 1] !== id) screenStack.push(id);
@@ -780,9 +895,7 @@
       if (screenStack.length > 1) {
         screenStack.pop();
         const prev = screenStack[screenStack.length - 1];
-        document.querySelectorAll('.screen').forEach(s => {
-          s.classList.remove('active', 'pop');
-        });
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active', 'pop'));
         document.getElementById(`screen-${prev}`).classList.add('active');
       }
     }
@@ -840,7 +953,6 @@
     function updateUserUI() {
       if (!currentUser) return;
       document.getElementById('user-display-name').textContent = currentUser.name;
-      document.getElementById('user-display-phone').textContent = currentUser.phone;
       document.getElementById('dash-balance').textContent = formatPeso(currentUser.balance);
       renderRecentTx();
     }
@@ -851,10 +963,10 @@
         container.innerHTML = '<p style="color:var(--text-light); text-align:center; padding:20px;">Wala pang gawain</p>';
         return;
       }
-      container.innerHTML = currentUser.transactions.slice(0, 3).map(tx => `
+      container.innerHTML = currentUser.transactions.slice(0, 4).map(tx => `
         <div class="tx-item">
           <div class="tx-left">
-            <div class="tx-icon">${tx.type === 'fund' ? '➕' : '💳'}</div>
+            <div class="tx-icon">${tx.type === 'fund' ? '➕' : tx.type === 'transfer' ? '🏦' : tx.type === 'bill' ? '📄' : '➡️'}</div>
             <div>
               <div class="tx-name">${tx.desc}</div>
               <div class="tx-meta">${tx.date}</div>
@@ -936,7 +1048,7 @@
       }
     }
 
-    // Fund — Walang limitasyon, may source selection
+    // Cash In / Fund
     function confirmFund() {
       const amount = parseFloat(document.getElementById('fund-amount').value);
       const source = document.getElementById('fund-source').value;
@@ -947,38 +1059,97 @@
       currentUser.transactions.unshift({
         type: 'fund',
         amount,
-        desc: `Mula sa ${source}`,
+        desc: `Cash In mula sa ${source}`,
         date: new Date().toLocaleString()
       });
       saveUser(currentUser);
       updateUserUI();
       closeModal('fund');
-      alert(`✅ Matagumpay na nakapaglagay ng ${formatPeso(amount)} mula sa ${source}`);
+      alert(`✅ Matagumpay na nakapag-Cash In ng ${formatPeso(amount)} mula sa ${source}`);
     }
 
-    // Pay — Walang limitasyon sa halaga, sapat na balanse lang
+    // Send / Pay
     function confirmPay() {
-      const method = document.getElementById('pay-method').value;
       const payPhone = document.getElementById('pay-phone').value.trim();
       const payName = document.getElementById('pay-name').value.trim();
       const amount = parseFloat(document.getElementById('pay-amount').value);
+      const note = document.getElementById('pay-note').value.trim() || 'Pagpadala';
       const err = document.getElementById('pay-error');
 
       if (!payPhone || !payName || !amount) return showError(err, 'Punan lahat ng patlang');
-      if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang laman ng pitaka');
+      if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang balanse');
       if (payPhone === currentUser.phone) return showError(err, 'Hindi maaaring sa sarili ipadala');
 
       currentUser.balance -= amount;
       currentUser.transactions.unshift({
         type: 'pay',
         amount,
-        desc: `Kay ${payName} (${method})`,
+        desc: `${note} → ${payName}`,
         date: new Date().toLocaleString()
       });
       saveUser(currentUser);
       updateUserUI();
       closeModal('pay');
-      alert(`✅ Matagumpay na nakabayad ng ${formatPeso(amount)} kay ${payName}`);
+      alert(`✅ Matagumpay na naipadala ang ${formatPeso(amount)} kay ${payName}`);
+    }
+
+    // Bank Transfer
+    function confirmTransfer() {
+      const bank = document.getElementById('bank-name').value;
+      const acc = document.getElementById('bank-acc').value.trim();
+      const accName = document.getElementById('bank-acc-name').value.trim();
+      const amount = parseFloat(document.getElementById('bank-amount').value);
+      const err = document.getElementById('bank-error');
+
+      if (!bank || !acc || !accName || !amount) return showError(err, 'Punan lahat ng patlang');
+      if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang balanse');
+
+      currentUser.balance -= amount;
+      currentUser.transactions.unshift({
+        type: 'transfer',
+        amount,
+        desc: `Bank Transfer → ${accName} (${bank})`,
+        date: new Date().toLocaleString()
+      });
+      saveUser(currentUser);
+      updateUserUI();
+      closeModal('transfer');
+      alert(`✅ Matagumpay na nailipat ang ${formatPeso(amount)} sa ${bank} — ${accName}`);
+    }
+
+    // Bills Helper
+    function updateBillerList() {
+      const cat = document.getElementById('bill-cat').value;
+      const list = {
+        electric: ['Meralco', 'Davao Light', 'Iba Pang Kuryente'],
+        water: ['Davao City Water District', 'Maynilad', 'Manila Water'],
+        internet: ['PLDT', 'Globe At Home', 'Converge'],
+        telco: ['Globe', 'Smart', 'DITO']
+      };
+      const sel = document.getElementById('biller-name');
+      sel.innerHTML = '<option value="">— Pumili —</option>' + list[cat].map(b => `<option value="${b}">${b}</option>`).join('');
+    }
+
+    function confirmBill() {
+      const biller = document.getElementById('biller-name').value;
+      const ref = document.getElementById('bill-ref').value.trim();
+      const amount = parseFloat(document.getElementById('bill-amount').value);
+      const err = document.getElementById('bill-error');
+
+      if (!biller || !ref || !amount) return showError(err, 'Punan lahat ng patlang');
+      if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang balanse');
+
+      currentUser.balance -= amount;
+      currentUser.transactions.unshift({
+        type: 'bill',
+        amount,
+        desc: `Bayad sa ${biller} (Ref: ${ref})`,
+        date: new Date().toLocaleString()
+      });
+      saveUser(currentUser);
+      updateUserUI();
+      closeModal('bills');
+      alert(`✅ Matagumpay na nakabayad ng ${formatPeso(amount)} sa ${biller}`);
     }
 
     // Modals
@@ -992,7 +1163,7 @@
           container.innerHTML = currentUser.transactions.map(tx => `
             <div class="tx-item">
               <div class="tx-left">
-                <div class="tx-icon">${tx.type === 'fund' ? '➕' : '💳'}</div>
+                <div class="tx-icon">${tx.type === 'fund' ? '➕' : tx.type === 'transfer' ? '🏦' : tx.type === 'bill' ? '📄' : '➡️'}</div>
                 <div>
                   <div class="tx-name">${tx.desc}</div>
                   <div class="tx-meta">${tx.date}</div>
