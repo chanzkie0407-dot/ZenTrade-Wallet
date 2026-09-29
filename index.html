@@ -53,7 +53,7 @@
       display: block;
     }
 
-    /* ============= GCash-STYLE HEADER ============= */
+    /* ============= GCash-EXACT HEADER ============= */
     .top-banner {
       background: var(--grad-gcash);
       padding: 45px 18px 0;
@@ -995,6 +995,11 @@
       document.getElementById('login-enter-btn').classList.add('hidden');
     }
 
+    function showError(el, message) {
+      el.textContent = message;
+      el.classList.remove('hidden');
+    }
+
     // ========== STORAGE ==========
     function getAllUsers() { return JSON.parse(localStorage.getItem('zt_users') || '{}'); }
     function saveUser(user) { const u = getAllUsers(); u[user.phone] = user; localStorage.setItem('zt_users', JSON.stringify(u)); }
@@ -1200,17 +1205,12 @@
               </div>
             </div>
           `).join('');
-                  }
+        }
       }
     }
 
     function closeModal(id) {
       document.getElementById(`modal-${id}`).classList.remove('active');
-    }
-
-    function showError(el, message) {
-      el.textContent = message;
-      el.classList.remove('hidden');
     }
 
     // ========== AUTO-RESTORE SESSION ==========
