@@ -9,25 +9,27 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Segoe UI', 'Roboto', sans-serif;
+      font-family: 'Segoe UI', 'Roboto', -apple-system, sans-serif;
     }
 
     :root {
       --primary: #00A651;
-      --primary-dark: #008c44;
-      --secondary: #1E1E2D;
-      --accent: #2A2A3C;
-      --text: #FFFFFF;
-      --muted: #9CA3AF;
-      --bg: #0F0F1A;
-      --card: #1A1A2E;
-      --input: #252535;
-      --danger: #EF4444;
+      --primary-light: #E8F5E9;
+      --primary-dark: #008C44;
+      --accent: #F5F5F7;
+      --text-dark: #1D1D1F;
+      --text-light: #86868B;
+      --white: #FFFFFF;
+      --border: #E5E5E7;
+      --danger: #FF3B30;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      --shadow-soft: 0 2px 10px rgba(0, 166, 81, 0.08);
+      --grad: linear-gradient(135deg, #00A651, #34C759);
     }
 
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: #F9FAFB;
+      color: var(--text-dark);
       min-height: 100vh;
       display: flex;
       justify-content: center;
@@ -36,18 +38,41 @@
 
     .app-container {
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       min-height: 100vh;
       position: relative;
+      overflow: hidden;
+      background: var(--white);
+      box-shadow: 0 0 40px rgba(0,0,0,0.05);
     }
 
+    /* GoTyme-style Slide Transitions */
     .screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      min-height: 100vh;
       display: none;
-      animation: fadeIn 0.3s ease;
+      animation: slideInRight 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--white);
     }
 
     .screen.active {
       display: block;
+    }
+
+    .screen.pop {
+      animation: slideOutLeft 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideOutLeft {
+      from { transform: translateX(0); opacity: 1; }
+      to { transform: translateX(-30%); opacity: 0; }
     }
 
     @keyframes fadeIn {
@@ -55,57 +80,60 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
     /* Header */
     .header {
-      padding: 30px 20px 20px;
+      padding: 60px 24px 20px;
       text-align: center;
     }
 
     .logo {
-      font-size: 28px;
-      font-weight: 800;
+      font-size: 26px;
+      font-weight: 700;
       color: var(--primary);
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
+      gap: 8px;
+      letter-spacing: -0.5px;
     }
 
     .logo span {
-      color: var(--text);
+      color: var(--text-dark);
     }
 
     .tagline {
-      color: var(--muted);
-      margin-top: 8px;
+      color: var(--text-light);
+      margin-top: 6px;
       font-size: 14px;
     }
 
     /* Welcome Screen */
     .welcome-card {
-      background: var(--card);
-      border-radius: 24px;
-      padding: 40px 30px;
-      margin-top: 40px;
+      padding: 60px 32px 40px;
       text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
     }
 
     .welcome-icon {
-      font-size: 60px;
-      margin-bottom: 20px;
+      font-size: 72px;
+      margin-bottom: 24px;
     }
 
     .welcome-title {
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      color: var(--text-dark);
     }
 
     .welcome-desc {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 35px;
+      color: var(--text-light);
+      font-size: 15px;
+      margin-bottom: 40px;
       line-height: 1.6;
     }
 
@@ -123,148 +151,194 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      background: var(--grad);
       color: white;
-      box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+      box-shadow: 0 4px 12px rgba(0, 166, 81, 0.25);
     }
 
     .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(0, 166, 81, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
     }
 
     .btn-secondary {
       background: var(--accent);
-      color: white;
-      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-dark);
+      border: 1px solid var(--border);
     }
 
     .btn-secondary:hover {
-      background: var(--input);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--primary);
-      border: 1px solid var(--primary);
-    }
-
-    .btn-outline:hover {
-      background: rgba(0, 166, 81, 0.1);
+      background: #EBEBEB;
     }
 
     .btn-back {
       background: transparent;
-      color: var(--muted);
+      color: var(--text-light);
       border: none;
       width: auto;
       padding: 10px 0;
-      margin-bottom: 10px;
+      margin: 10px 24px 0;
       display: flex;
       align-items: center;
       gap: 6px;
       font-size: 14px;
+      cursor: pointer;
     }
 
     .btn-back:hover {
-      color: var(--text);
+      color: var(--text-dark);
     }
 
     /* Inputs */
     .input-group {
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      font-size: 13px;
-      color: var(--muted);
+      font-size: 14px;
+      color: var(--text-dark);
       margin-bottom: 8px;
+      font-weight: 500;
     }
 
-    input {
+    input, select {
       width: 100%;
-      padding: 15px 18px;
-      border: none;
+      padding: 16px 18px;
+      border: 1px solid var(--border);
       border-radius: 12px;
-      background: var(--input);
-      color: white;
+      background: var(--white);
+      color: var(--text-dark);
       font-size: 16px;
       outline: none;
       transition: all 0.2s ease;
     }
 
-    input:focus {
-      box-shadow: 0 0 0 2px var(--primary);
+    input:focus, select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(0, 166, 81, 0.1);
     }
 
     .hint {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--text-light);
       margin-top: 6px;
+    }
+
+    .upload-box {
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 28px 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: var(--accent);
+    }
+
+    .upload-box:hover, .upload-box.active {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .upload-icon {
+      font-size: 28px;
+      margin-bottom: 6px;
+    }
+
+    .file-name {
+      font-size: 13px;
+      color: var(--primary);
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    .id-note {
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 6px;
+      line-height: 1.5;
     }
 
     /* Dashboard */
     .dash-header {
-      padding: 25px 20px;
+      padding: 60px 24px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
+    .user-greeting {
+      font-size: 14px;
+      color: var(--text-light);
+    }
+
     .user-name {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 700;
+      color: var(--text-dark);
     }
 
     .user-phone {
       font-size: 13px;
-      color: var(--muted);
+      color: var(--text-light);
       margin-top: 2px;
     }
 
     .logout-btn {
-      background: transparent;
+      background: var(--accent);
       border: none;
-      color: var(--muted);
+      color: var(--text-dark);
       font-size: 14px;
       cursor: pointer;
-      padding: 8px 12px;
-      border-radius: 8px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 500;
     }
 
     .logout-btn:hover {
-      background: var(--accent);
+      background: #FEE;
       color: var(--danger);
     }
 
     .balance-card {
-      background: linear-gradient(135deg, var(--primary), #007d40);
-      border-radius: 24px;
-      padding: 30px 25px;
-      margin: 10px 15px 25px;
-      box-shadow: 0 10px 30px rgba(0, 166, 81, 0.25);
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      margin: 20px 24px;
+      box-shadow: var(--shadow-soft);
       text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .balance-card:hover {
+      box-shadow: 0 8px 30px rgba(0, 166, 81, 0.12);
+      transform: translateY(-2px);
     }
 
     .balance-label {
       font-size: 14px;
-      opacity: 0.8;
+      color: var(--text-light);
       margin-bottom: 8px;
     }
 
     .balance-amount {
-      font-size: 42px;
+      font-size: 40px;
       font-weight: 800;
-      letter-spacing: -0.5px;
+      letter-spacing: -1px;
+      color: var(--text-dark);
     }
 
     /* Quick Actions */
     .actions-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      padding: 0 15px 25px;
+      gap: 16px 8px;
+      padding: 0 24px 30px;
     }
 
     .action-btn {
@@ -273,13 +347,18 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .action-btn:active {
+      transform: scale(0.95);
     }
 
     .action-icon {
-      width: 55px;
-      height: 55px;
-      border-radius: 14px;
-      background: var(--card);
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: var(--primary-light);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -288,36 +367,39 @@
     }
 
     .action-btn:hover .action-icon {
-      background: var(--accent);
-      transform: scale(1.05);
+      background: var(--grad);
+      color: white;
+      transform: scale(1.08);
     }
 
     .action-label {
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-dark);
+      font-weight: 500;
     }
 
     /* Sections */
     .section {
-      background: var(--card);
-      border-radius: 20px;
-      padding: 22px;
-      margin: 0 15px 20px;
+      background: var(--white);
+      border-top: 8px solid #F9FAFB;
+      padding: 24px;
     }
 
     .section-title {
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 700;
-      margin-bottom: 15px;
+      margin-bottom: 16px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      color: var(--text-dark);
     }
 
     .view-all {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--primary);
       cursor: pointer;
+      font-weight: 500;
     }
 
     .tx-item {
@@ -325,7 +407,8 @@
       justify-content: space-between;
       align-items: center;
       padding: 14px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
+      border-bottom: 1px solid var(--accent);
+      transition: background 0.2s ease;
     }
 
     .tx-item:last-child {
@@ -352,11 +435,12 @@
     .tx-name {
       font-size: 14px;
       font-weight: 600;
+      color: var(--text-dark);
     }
 
     .tx-meta {
       font-size: 11px;
-      color: var(--muted);
+      color: var(--text-light);
       margin-top: 2px;
     }
 
@@ -366,7 +450,7 @@
     }
 
     .tx-amount.negative {
-      color: #F97316;
+      color: #FF9500;
     }
 
     .tx-amount.positive {
@@ -377,62 +461,68 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.4);
       display: none;
       align-items: flex-end;
       justify-content: center;
       z-index: 100;
       padding: 0;
+      backdrop-filter: blur(6px);
     }
 
     .modal-overlay.active {
       display: flex;
+      animation: fadeIn 0.2s ease;
     }
 
     .modal {
-      background: var(--card);
+      background: var(--white);
       width: 100%;
-      max-width: 420px;
+      max-width: 430px;
       border-radius: 24px 24px 0 0;
-      padding: 25px;
-      animation: slideUp 0.3s ease;
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(100%); }
-      to { transform: translateY(0); }
+      padding: 28px 24px;
+      animation: slideUp 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      max-height: 85vh;
+      overflow-y: auto;
     }
 
     .modal-title {
       font-size: 18px;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       text-align: center;
+      color: var(--text-dark);
     }
 
     .modal-close {
       text-align: right;
       margin-bottom: -15px;
       cursor: pointer;
-      color: var(--muted);
+      color: var(--text-light);
+      font-size: 22px;
     }
 
     .error-text {
       color: var(--danger);
       font-size: 13px;
-      margin-top: 10px;
+      margin-top: 12px;
       text-align: center;
     }
 
     .success-text {
       color: var(--primary);
       font-size: 13px;
-      margin-top: 10px;
+      margin-top: 12px;
       text-align: center;
+      font-weight: 500;
     }
 
     .hidden {
       display: none !important;
+    }
+
+    .form-container {
+      padding: 10px 24px 30px;
     }
   </style>
 </head>
@@ -441,14 +531,10 @@
 
     <!-- ============= WELCOME SCREEN ============= -->
     <div id="screen-welcome" class="screen active">
-      <div class="header">
-        <div class="logo">💰 <span>ZenTrade Wallet</span></div>
-        <p class="tagline">Ligtas, Mabilis, at Makabagong Pitaka</p>
-      </div>
       <div class="welcome-card">
-        <div class="welcome-icon">👋</div>
-        <h2 class="welcome-title">Maligayang Pagdating!</h2>
-        <p class="welcome-desc">Pamahalaan ang iyong pera nang madali at ligtas sa ZenTrade Wallet.</p>
+        <div class="welcome-icon">💰</div>
+        <h1 class="welcome-title">Maligayang Pagdating!</h1>
+        <p class="welcome-desc">Pamahalaan ang iyong pera nang madali, ligtas, at mabilis sa ZenTrade Wallet.</p>
         <button class="btn btn-primary" onclick="showScreen('signup')">Gumawa ng Account</button>
         <button class="btn btn-secondary" onclick="showScreen('login')">Mag-log in</button>
       </div>
@@ -456,12 +542,12 @@
 
     <!-- ============= SIGNUP SCREEN ============= -->
     <div id="screen-signup" class="screen">
+      <button class="btn-back" onclick="goBack()">← Bumalik</button>
       <div class="header">
-        <button class="btn-back" onclick="goBack()">← Bumalik</button>
         <div class="logo">💰 <span>ZenTrade Wallet</span></div>
       </div>
-      <div class="section" style="margin-top: 10px;">
-        <h2 class="section-title" style="justify-content:center; font-size:20px;">Gumawa ng Account</h2>
+      <div class="form-container">
+        <h2 class="section-title" style="justify-content:center; font-size:20px; margin-bottom:24px;">Gumawa ng Account</h2>
         <div class="input-group">
           <label>Pangalan</label>
           <input type="text" id="su-name" placeholder="Iyong buong pangalan">
@@ -471,13 +557,23 @@
           <input type="tel" id="su-phone" placeholder="Hal. 09171234567">
         </div>
         <div class="input-group">
-          <label>Gumawa ng PIN (6 na numero)</label>
-          <input type="password" id="su-pin" maxlength="6" placeholder="••••••">
+          <label>Mag-upload ng Valid ID</label>
+          <div class="upload-box" id="id-upload-box" onclick="document.getElementById('su-id').click()">
+            <input type="file" id="su-id" accept="image/*,.pdf" style="display:none" onchange="handleIdUpload(this)">
+            <div class="upload-icon">📎</div>
+            <div>Mag-upload ng Valid Government ID</div>
+            <div class="id-note">Tinatanggap: National ID, Driver's License, Passport, UMID, SSS, PhilSys, atbp.</div>
+            <div class="file-name" id="id-filename">— Wala pang napili —</div>
+          </div>
+        </div>
+        <div class="input-group">
+          <label>Gumawa ng PIN (4 na numero)</label>
+          <input type="password" id="su-pin" maxlength="4" placeholder="••••">
           <p class="hint">Huwag kalimutan ang iyong PIN — ito ang susi sa iyong pitaka</p>
         </div>
         <div class="input-group">
           <label>Ulitin ang PIN</label>
-          <input type="password" id="su-pin2" maxlength="6" placeholder="••••••">
+          <input type="password" id="su-pin2" maxlength="4" placeholder="••••">
         </div>
         <p id="signup-error" class="error-text hidden"></p>
         <button class="btn btn-primary" onclick="doSignup()">Magrehistro</button>
@@ -486,12 +582,12 @@
 
     <!-- ============= LOGIN SCREEN ============= -->
     <div id="screen-login" class="screen">
+      <button class="btn-back" onclick="goBack()">← Bumalik</button>
       <div class="header">
-        <button class="btn-back" onclick="goBack()">← Bumalik</button>
         <div class="logo">💰 <span>ZenTrade Wallet</span></div>
       </div>
-      <div class="section" style="margin-top: 10px;">
-        <h2 class="section-title" style="justify-content:center; font-size:20px;">Mag-log in</h2>
+      <div class="form-container">
+        <h2 class="section-title" style="justify-content:center; font-size:20px; margin-bottom:24px;">Mag-log in</h2>
         <div class="input-group">
           <label>Numero ng Telepono</label>
           <input type="tel" id="li-phone" placeholder="Ilagay ang iyong numero">
@@ -499,12 +595,12 @@
         <p id="login-find" class="success-text hidden">✅ Nakita ang account! Ilagay ang iyong PIN sa ibaba</p>
         <div class="input-group" id="pin-group" style="display:none;">
           <label>Ilagay ang iyong PIN</label>
-          <input type="password" id="li-pin" maxlength="6" placeholder="••••••">
+          <input type="password" id="li-pin" maxlength="4" placeholder="••••">
         </div>
         <p id="login-error" class="error-text hidden"></p>
         <button class="btn btn-primary" id="login-next-btn" onclick="findAccount()">Susunod</button>
         <button class="btn btn-primary hidden" id="login-enter-btn" onclick="doLogin()">Pumasok</button>
-        <p style="text-align:center; margin-top:20px; font-size:13px; color:var(--muted);">Wala pang account? <a href="#" onclick="showScreen('signup'); return false;" style="color:var(--primary);">Gumawa dito</a></p>
+        <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--text-light);">Wala pang account? <a href="#" onclick="showScreen('signup'); return false;" style="color:var(--primary); font-weight:500;">Gumawa dito</a></p>
       </div>
     </div>
 
@@ -512,10 +608,11 @@
     <div id="screen-dashboard" class="screen">
       <div class="dash-header">
         <div>
+          <div class="user-greeting">Kamusta,</div>
           <div class="user-name" id="user-display-name">—</div>
           <div class="user-phone" id="user-display-phone">—</div>
         </div>
-        <button class="logout-btn" onclick="doLogout()">🚪 Labas</button>
+        <button class="logout-btn" onclick="doLogout()">Labas</button>
       </div>
 
       <div class="balance-card">
@@ -545,7 +642,7 @@
       <div class="section">
         <div class="section-title">
           Kamakailang Gawain
-          <span class="view-all" onclick="openModal('history')">Tingnan lahat</span>
+          <span class="view-all" onclick="openModal('history')">Tingnan lahat →</span>
         </div>
         <div id="recent-tx"></div>
       </div>
@@ -556,6 +653,26 @@
       <div class="modal">
         <span class="modal-close" onclick="closeModal('fund')">✕</span>
         <h3 class="modal-title">➕ Maglagay ng Pera</h3>
+        <div class="input-group">
+          <label>Piliin ang Pinagmulan</label>
+          <select id="fund-source">
+            <optgroup label="Mga Bangko">
+              <option value="BPI">BPI</option>
+              <option value="BDO">BDO Unibank</option>
+              <option value="Metrobank">Metrobank</option>
+              <option value="Landbank">Landbank</option>
+              <option value="GoTyme">GoTyme Bank</option>
+              <option value="UnionBank">UnionBank</option>
+              <option value="PNB">Philippine National Bank</option>
+            </optgroup>
+            <optgroup label="E-Wallet">
+              <option value="GCash">GCash</option>
+              <option value="Maya">Maya</option>
+              <option value="Coins.ph">Coins.ph</option>
+              <option value="SeaBank">SeaBank</option>
+            </optgroup>
+          </select>
+        </div>
         <div class="input-group">
           <label>Halagang ilalagay</label>
           <input type="number" id="fund-amount" placeholder="Hal. 500">
@@ -571,6 +688,14 @@
         <span class="modal-close" onclick="closeModal('pay')">✕</span>
         <h3 class="modal-title">💳 Magbayad</h3>
         <div class="input-group">
+          <label>Piliin ang Padadalhan</label>
+          <select id="pay-method">
+            <option value="wallet">ZenTrade Wallet</option>
+            <option value="bank">Bangko</option>
+            <option value="ewallet">Ibang E-Wallet</option>
+          </select>
+        </div>
+        <div class="input-group">
           <label>Numero ng Tatanggap</label>
           <input type="text" id="pay-phone" placeholder="Numero">
         </div>
@@ -580,9 +705,8 @@
         </div>
         <div class="input-group">
           <label>Halaga</label>
-          <input type="number" id="pay-amount" placeholder="Hanggang ₱500">
+          <input type="number" id="pay-amount" placeholder="Ilagay ang halaga">
         </div>
-        <p class="hint">Limit: ₱500 bawat bayad</p>
         <p id="pay-error" class="error-text hidden"></p>
         <button class="btn btn-primary" onclick="confirmPay()">Kumpirmahin ang Bayad</button>
       </div>
@@ -608,14 +732,45 @@
       });
     }
 
+    // ========== SESSION TIMEOUT — 5 MINUTES ==========
+    let inactivityTimer;
+    const INACTIVITY_LIMIT = 5 * 60 * 1000; // 5 minutes
+
+    function resetInactivityTimer() {
+      clearTimeout(inactivityTimer);
+      inactivityTimer = setTimeout(() => {
+        if (currentUser) {
+          alert('Naka-log out ka na dahil walang ginawa sa loob ng 5 minuto.');
+          doLogout(true);
+        }
+      }, INACTIVITY_LIMIT);
+    }
+
+    // Monitor user activity
+    ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'].forEach(evt => {
+      document.addEventListener(evt, resetInactivityTimer, { passive: true });
+    });
+
+    // ID Upload Handler
+    function handleIdUpload(input) {
+      const fileName = input.files[0]?.name || '— Wala pang napili —';
+      document.getElementById('id-filename').textContent = fileName;
+      document.getElementById('id-upload-box').classList.add('active');
+    }
+
     // State
     let currentUser = null;
 
-    // Screen Management
+    // Screen Management — GoTyme-style
     let screenStack = ['welcome'];
 
     function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      const current = document.querySelector('.screen.active');
+      if (current) {
+        current.classList.remove('active');
+        current.classList.add('pop');
+        setTimeout(() => current.classList.remove('pop'), 350);
+      }
       document.getElementById(`screen-${id}`).classList.add('active');
       if (screenStack[screenStack.length - 1] !== id) screenStack.push(id);
       clearErrors();
@@ -624,13 +779,21 @@
     function goBack() {
       if (screenStack.length > 1) {
         screenStack.pop();
-        showScreen(screenStack.pop());
+        const prev = screenStack[screenStack.length - 1];
+        document.querySelectorAll('.screen').forEach(s => {
+          s.classList.remove('active', 'pop');
+        });
+        document.getElementById(`screen-${prev}`).classList.add('active');
       }
     }
 
     function clearErrors() {
       document.querySelectorAll('.error-text').forEach(e => e.classList.add('hidden'));
-      document.querySelectorAll('input').forEach(i => i.value = '');
+      document.querySelectorAll('input').forEach(i => {
+        if (i.id !== 'su-id') i.value = '';
+      });
+      document.getElementById('id-filename').textContent = '— Wala pang napili —';
+      document.getElementById('id-upload-box').classList.remove('active');
       // Reset login sub-states
       document.getElementById('pin-group').style.display = 'none';
       document.getElementById('login-find').classList.add('hidden');
@@ -656,11 +819,13 @@
     function setSession(user) {
       currentUser = user;
       localStorage.setItem('zt_session', user.phone);
+      resetInactivityTimer();
     }
 
     function clearSession() {
       currentUser = null;
       localStorage.removeItem('zt_session');
+      clearTimeout(inactivityTimer);
     }
 
     function loadSession() {
@@ -668,6 +833,7 @@
       if (!phone) return null;
       const user = findUser(phone);
       if (!user) clearSession();
+      else resetInactivityTimer();
       return user;
     }
 
@@ -682,7 +848,7 @@
     function renderRecentTx() {
       const container = document.getElementById('recent-tx');
       if (!currentUser.transactions.length) {
-        container.innerHTML = '<p style="color:var(--muted); text-align:center; padding:15px;">Wala pang gawain</p>';
+        container.innerHTML = '<p style="color:var(--text-light); text-align:center; padding:20px;">Wala pang gawain</p>';
         return;
       }
       container.innerHTML = currentUser.transactions.slice(0, 3).map(tx => `
@@ -707,11 +873,13 @@
       const phone = document.getElementById('su-phone').value.trim();
       const pin = document.getElementById('su-pin').value.trim();
       const pin2 = document.getElementById('su-pin2').value.trim();
+      const idFile = document.getElementById('su-id').files[0];
       const err = document.getElementById('signup-error');
 
       if (!name || !phone || !pin || !pin2) return showError(err, 'Punan lahat ng patlang');
+      if (!idFile) return showError(err, 'Mag-upload ng Valid Government ID');
       if (!/^\d{10,11}$/.test(phone.replace(/\D/g,''))) return showError(err, 'Hindi wasto ang numero');
-      if (pin.length !== 6 || !/^\d+$/.test(pin)) return showError(err, 'Ang PIN ay dapat 6 na numero');
+      if (pin.length !== 4 || !/^\d+$/.test(pin)) return showError(err, 'Ang PIN ay dapat 4 na numero');
       if (pin !== pin2) return showError(err, 'Hindi magkatugma ang PIN');
       if (findUser(phone)) return showError(err, 'Mayroon nang account sa numerong ito');
 
@@ -720,6 +888,7 @@
         name,
         phone,
         pin,
+        idFileName: idFile.name,
         balance: 0,
         transactions: []
       };
@@ -758,8 +927,8 @@
       updateUserUI();
     }
 
-    function doLogout() {
-      if (confirm('Sigurado ka bang lalabas?')) {
+    function doLogout(auto = false) {
+      if (auto || confirm('Sigurado ka bang lalabas?')) {
         clearSession();
         foundUser = null;
         screenStack = ['welcome'];
@@ -767,9 +936,10 @@
       }
     }
 
-    // Fund
+    // Fund — Walang limitasyon, may source selection
     function confirmFund() {
       const amount = parseFloat(document.getElementById('fund-amount').value);
+      const source = document.getElementById('fund-source').value;
       const err = document.getElementById('fund-error');
       if (!amount || amount <= 0) return showError(err, 'Ilagay ang wastong halaga');
 
@@ -777,24 +947,24 @@
       currentUser.transactions.unshift({
         type: 'fund',
         amount,
-        desc: 'Naglagay ng pera',
+        desc: `Mula sa ${source}`,
         date: new Date().toLocaleString()
       });
       saveUser(currentUser);
       updateUserUI();
       closeModal('fund');
-      alert(`✅ Matagumpay na nakapaglagay ng ${formatPeso(amount)}`);
+      alert(`✅ Matagumpay na nakapaglagay ng ${formatPeso(amount)} mula sa ${source}`);
     }
 
-    // Pay
+    // Pay — Walang limitasyon sa halaga, sapat na balanse lang
     function confirmPay() {
+      const method = document.getElementById('pay-method').value;
       const payPhone = document.getElementById('pay-phone').value.trim();
       const payName = document.getElementById('pay-name').value.trim();
       const amount = parseFloat(document.getElementById('pay-amount').value);
       const err = document.getElementById('pay-error');
 
       if (!payPhone || !payName || !amount) return showError(err, 'Punan lahat ng patlang');
-      if (amount > 500) return showError(err, 'Hanggang ₱500 lang bawat bayad');
       if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang laman ng pitaka');
       if (payPhone === currentUser.phone) return showError(err, 'Hindi maaaring sa sarili ipadala');
 
@@ -802,7 +972,7 @@
       currentUser.transactions.unshift({
         type: 'pay',
         amount,
-        desc: `Kay ${payName}`,
+        desc: `Kay ${payName} (${method})`,
         date: new Date().toLocaleString()
       });
       saveUser(currentUser);
@@ -817,7 +987,7 @@
       if (id === 'history') {
         const container = document.getElementById('full-history');
         if (!currentUser.transactions.length) {
-          container.innerHTML = '<p style="color:var(--muted); text-align:center; padding:20px;">Wala pang talaan</p>';
+          container.innerHTML = '<p style="color:var(--text-light); text-align:center; padding:20px;">Wala pang talaan</p>';
         } else {
           container.innerHTML = currentUser.transactions.map(tx => `
             <div class="tx-item">
