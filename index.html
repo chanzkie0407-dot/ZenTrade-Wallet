@@ -5,97 +5,885 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ZenTrade Wallet</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-    body{background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;color:#fff;padding:20px}
-    .container{max-width:480px;margin:0 auto}
-    h1{text-align:center;margin:20px 0}
-    .card{background:rgba(255,255,255,.08);border-radius:20px;padding:25px;margin-bottom:20px}
-    .amount{font-size:42px;font-weight:bold;color:#2ecc71;text-align:center;margin:10px 0}
-    input{width:100%;padding:14px;margin:8px 0;border:none;border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font-size:15px}
-    button{width:100%;padding:14px;border:none;border-radius:12px;font-size:16px;font-weight:bold;cursor:pointer;margin-top:10px}
-    .btn-primary{background:#2ecc71;color:#fff}
-    .btn-secondary{background:rgba(255,255,255,.15);color:#fff}
-    .tx-item{padding:12px 0;border-bottom:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', sans-serif;
+    }
+
+    :root {
+      --primary: #00A651;
+      --primary-dark: #008c44;
+      --secondary: #1E1E2D;
+      --accent: #2A2A3C;
+      --text: #FFFFFF;
+      --muted: #9CA3AF;
+      --bg: #0F0F1A;
+      --card: #1A1A2E;
+      --input: #252535;
+      --danger: #EF4444;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 420px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Header */
+    .header {
+      padding: 30px 20px 20px;
+      text-align: center;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      color: var(--text);
+    }
+
+    .tagline {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    /* Welcome Screen */
+    .welcome-card {
+      background: var(--card);
+      border-radius: 24px;
+      padding: 40px 30px;
+      margin-top: 40px;
+      text-align: center;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .welcome-icon {
+      font-size: 60px;
+      margin-bottom: 20px;
+    }
+
+    .welcome-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .welcome-desc {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 35px;
+      line-height: 1.6;
+    }
+
+    /* Buttons */
+    .btn {
+      width: 100%;
+      padding: 16px;
+      border: none;
+      border-radius: 14px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      margin-bottom: 12px;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      box-shadow: 0 4px 15px rgba(0, 166, 81, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 166, 81, 0.4);
+    }
+
+    .btn-secondary {
+      background: var(--accent);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-secondary:hover {
+      background: var(--input);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--primary);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: rgba(0, 166, 81, 0.1);
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--muted);
+      border: none;
+      width: auto;
+      padding: 10px 0;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+    }
+
+    .btn-back:hover {
+      color: var(--text);
+    }
+
+    /* Inputs */
+    .input-group {
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 18px;
+      border: none;
+      border-radius: 12px;
+      background: var(--input);
+      color: white;
+      font-size: 16px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    input:focus {
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* PIN Input */
+    .pin-container {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 30px 0;
+    }
+
+    .pin-box {
+      width: 55px;
+      height: 60px;
+      border-radius: 12px;
+      background: var(--input);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      font-weight: 700;
+      border: 2px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .pin-box.filled {
+      border-color: var(--primary);
+      background: rgba(0, 166, 81, 0.1);
+    }
+
+    .pin-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Dashboard */
+    .dash-header {
+      padding: 25px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .user-name {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .user-phone {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .logout-btn {
+      background: transparent;
+      border: none;
+      color: var(--muted);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    .logout-btn:hover {
+      background: var(--accent);
+      color: var(--danger);
+    }
+
+    .balance-card {
+      background: linear-gradient(135deg, var(--primary), #007d40);
+      border-radius: 24px;
+      padding: 30px 25px;
+      margin: 10px 15px 25px;
+      box-shadow: 0 10px 30px rgba(0, 166, 81, 0.25);
+    }
+
+    .balance-label {
+      font-size: 14px;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .balance-amount {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .balance-amount.small {
+      font-size: 32px;
+    }
+
+    /* Quick Actions */
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      padding: 0 15px 25px;
+    }
+
+    .action-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+    }
+
+    .action-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 14px;
+      background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: all 0.2s ease;
+    }
+
+    .action-btn:hover .action-icon {
+      background: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .action-label {
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    /* Sections */
+    .section {
+      background: var(--card);
+      border-radius: 20px;
+      padding: 22px;
+      margin: 0 15px 20px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .view-all {
+      font-size: 12px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .tx-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .tx-item:last-child {
+      border-bottom: none;
+    }
+
+    .tx-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .tx-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+    }
+
+    .tx-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .tx-meta {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .tx-amount {
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .tx-amount.negative {
+      color: #F97316;
+    }
+
+    .tx-amount.positive {
+      color: var(--primary);
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 100;
+      padding: 0;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--card);
+      width: 100%;
+      max-width: 420px;
+      border-radius: 24px 24px 0 0;
+      padding: 25px;
+      animation: slideUp 0.3s ease;
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .modal-close {
+      text-align: right;
+      margin-bottom: -15px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .error-text {
+      color: var(--danger);
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .success-text {
+      color: var(--primary);
+      font-size: 13px;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>💰 ZenTrade Wallet</h1>
-    
-    <div class="card">
-      <p style="text-align:center;opacity:.7">Laman ng Pitaka</p>
-      <p class="amount" id="balance">₱ 0.00</p>
-      <button class="btn-secondary" onclick="addFunds()">➕ Maglagay ng Pera</button>
+  <div class="app-container">
+
+    <!-- ============= WELCOME SCREEN ============= -->
+    <div id="screen-welcome" class="screen active">
+      <div class="header">
+        <div class="logo">💰 <span>ZenTrade Wallet</span></div>
+        <p class="tagline">Ligtas, Mabilis, at Makabagong Pitaka</p>
+      </div>
+      <div class="welcome-card">
+        <div class="welcome-icon">👋</div>
+        <h2 class="welcome-title">Maligayang Pagdating!</h2>
+        <p class="welcome-desc">Pamahalaan ang iyong pera nang madali at ligtas sa ZenTrade Wallet.</p>
+        <button class="btn btn-primary" onclick="showScreen('signup')">Gumawa ng Account</button>
+        <button class="btn btn-secondary" onclick="showScreen('login')">Mag-log in</button>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>💳 Magbayad</h3>
-      <input type="text" id="recipientId" placeholder="ID ng Tatanggap">
-      <input type="text" id="recipientName" placeholder="Pangalan ng Tatanggap">
-      <input type="number" id="amount" placeholder="Halaga">
-      <button class="btn-primary" onclick="sendPayment()">Kumpirmahin ang Bayad</button>
-      <p style="font-size:12px;opacity:.6;text-align:center;margin-top:10px">Limit: ₱500/bawat bayad</p>
+    <!-- ============= SIGNUP SCREEN ============= -->
+    <div id="screen-signup" class="screen">
+      <div class="header">
+        <button class="btn-back" onclick="goBack()">← Bumalik</button>
+        <div class="logo">💰 <span>ZenTrade Wallet</span></div>
+      </div>
+      <div class="section" style="margin-top: 10px;">
+        <h2 class="section-title" style="justify-content:center; font-size:20px;">Gumawa ng Account</h2>
+        <div class="input-group">
+          <label>Pangalan</label>
+          <input type="text" id="su-name" placeholder="Iyong buong pangalan">
+        </div>
+        <div class="input-group">
+          <label>Numero ng Telepono</label>
+          <input type="tel" id="su-phone" placeholder="Hal. 09171234567">
+        </div>
+        <div class="input-group">
+          <label>Gumawa ng PIN (6 na numero)</label>
+          <input type="password" id="su-pin" maxlength="6" placeholder="••••••">
+          <p class="hint">Huwag kalimutan ang iyong PIN — ito ang susi sa iyong pitaka</p>
+        </div>
+        <div class="input-group">
+          <label>Ulitin ang PIN</label>
+          <input type="password" id="su-pin2" maxlength="6" placeholder="••••••">
+        </div>
+        <p id="signup-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" onclick="doSignup()">Magrehistro</button>
+      </div>
     </div>
 
-    <div class="card">
-      <h3>📋 Talaan</h3>
-      <div id="history"></div>
+    <!-- ============= LOGIN SCREEN ============= -->
+    <div id="screen-login" class="screen">
+      <div class="header">
+        <button class="btn-back" onclick="goBack()">← Bumalik</button>
+        <div class="logo">💰 <span>ZenTrade Wallet</span></div>
+      </div>
+      <div class="section" style="margin-top: 10px;">
+        <h2 class="section-title" style="justify-content:center; font-size:20px;">Mag-log in</h2>
+        <div class="input-group">
+          <label>Numero ng Telepono</label>
+          <input type="tel" id="li-phone" placeholder="Ilagay ang iyong numero">
+        </div>
+        <p id="login-find" class="success-text hidden">✅ Nakita ang account! Ilagay ang iyong PIN sa ibaba</p>
+        <div class="input-group" id="pin-group" style="display:none;">
+          <label>Ilagay ang iyong PIN</label>
+          <input type="password" id="li-pin" maxlength="6" placeholder="••••••">
+        </div>
+        <p id="login-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" id="login-next-btn" onclick="findAccount()">Susunod</button>
+        <button class="btn btn-primary hidden" id="login-enter-btn" onclick="doLogin()">Pumasok</button>
+        <p style="text-align:center; margin-top:20px; font-size:13px; color:var(--muted);">Wala pang account? <a href="#" onclick="showScreen('signup'); return false;" style="color:var(--primary);">Gumawa dito</a></p>
+      </div>
     </div>
+
+    <!-- ============= DASHBOARD SCREEN ============= -->
+    <div id="screen-dashboard" class="screen">
+      <div class="dash-header">
+        <div>
+          <div class="user-name" id="user-display-name">—</div>
+          <div class="user-phone" id="user-display-phone">—</div>
+        </div>
+        <button class="logout-btn" onclick="doLogout()">🚪 Labas</button>
+      </div>
+
+      <div class="balance-card">
+        <div class="balance-label">Laman ng Pitaka</div>
+        <div class="balance-amount" id="dash-balance">₱ 0.00</div>
+      </div>
+
+      <div class="actions-grid">
+        <div class="action-btn" onclick="openModal('fund')">
+          <div class="action-icon">➕</div>
+          <span class="action-label">Maglagay</span>
+        </div>
+        <div class="action-btn" onclick="openModal('pay')">
+          <div class="action-icon">💳</div>
+          <span class="action-label">Magbayad</span>
+        </div>
+        <div class="action-btn" onclick="openModal('history')">
+          <div class="action-icon">📋</div>
+          <span class="action-label">Talaan</span>
+        </div>
+        <div class="action-btn" onclick="alert('Available soon!')">
+          <div class="action-icon">⚙️</div>
+          <span class="action-label">Settings</span>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">
+          Kamakailang Gawain
+          <span class="view-all" onclick="openModal('history')">Tingnan lahat</span>
+        </div>
+        <div id="recent-tx"></div>
+      </div>
+    </div>
+
+    <!-- ============= MODAL: FUND ============= -->
+    <div id="modal-fund" class="modal-overlay">
+      <div class="modal">
+        <span class="modal-close" onclick="closeModal('fund')">✕</span>
+        <h3 class="modal-title">➕ Maglagay ng Pera</h3>
+        <div class="input-group">
+          <label>Halagang ilalagay</label>
+          <input type="number" id="fund-amount" placeholder="Hal. 500">
+        </div>
+        <p id="fund-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" onclick="confirmFund()">Kumpirmahin</button>
+      </div>
+    </div>
+
+    <!-- ============= MODAL: PAY ============= -->
+    <div id="modal-pay" class="modal-overlay">
+      <div class="modal">
+        <span class="modal-close" onclick="closeModal('pay')">✕</span>
+        <h3 class="modal-title">💳 Magbayad</h3>
+        <div class="input-group">
+          <label>Numero ng Tatanggap</label>
+          <input type="text" id="pay-phone" placeholder="Numero">
+        </div>
+        <div class="input-group">
+          <label>Pangalan ng Tatanggap</label>
+          <input type="text" id="pay-name" placeholder="Pangalan">
+        </div>
+        <div class="input-group">
+          <label>Halaga</label>
+          <input type="number" id="pay-amount" placeholder="Hanggang ₱500">
+        </div>
+        <p class="hint">Limit: ₱500 bawat bayad</p>
+        <p id="pay-error" class="error-text hidden"></p>
+        <button class="btn btn-primary" onclick="confirmPay()">Kumpirmahin ang Bayad</button>
+      </div>
+    </div>
+
+    <!-- ============= MODAL: HISTORY ============= -->
+    <div id="modal-history" class="modal-overlay">
+      <div class="modal">
+        <span class="modal-close" onclick="closeModal('history')">✕</span>
+        <h3 class="modal-title">📋 Buong Talaan</h3>
+        <div id="full-history" style="max-height:400px; overflow-y:auto;"></div>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    let balance = parseFloat(localStorage.getItem('wallet_balance') || 0);
-    let transactions = JSON.parse(localStorage.getItem('wallet_transactions') || '[]');
-    
-    function updateUI() {
-      document.getElementById('balance').textContent = '₱ ' + balance.toFixed(2);
-      const history = document.getElementById('history');
-      history.innerHTML = transactions.length === 0 
-        ? '<p style="opacity:.5;text-align:center">Wala pang talaan</p>'
-        : transactions.map(tx => `
-          <div class="tx-item">
-            <span>-₱${tx.amount.toFixed(2)}</span>
-            <span>${tx.name}</span>
-            <span style="opacity:.5;font-size:12px">${tx.date}</span>
+    // State
+    let currentUser = null;
+
+    // Screen Management
+    let screenStack = ['welcome'];
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(`screen-${id}`).classList.add('active');
+      if (screenStack[screenStack.length - 1] !== id) screenStack.push(id);
+      clearErrors();
+    }
+
+    function goBack() {
+      if (screenStack.length > 1) {
+        screenStack.pop();
+        showScreen(screenStack.pop());
+      }
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.error-text').forEach(e => e.classList.add('hidden'));
+      document.querySelectorAll('input').forEach(i => i.value = '');
+      // Reset login sub-states
+      document.getElementById('pin-group').style.display = 'none';
+      document.getElementById('login-find').classList.add('hidden');
+      document.getElementById('login-next-btn').classList.remove('hidden');
+      document.getElementById('login-enter-btn').classList.add('hidden');
+    }
+
+    // Database Helpers
+    function getAllUsers() {
+      return JSON.parse(localStorage.getItem('zt_users') || '{}');
+    }
+
+    function saveUser(user) {
+      const users = getAllUsers();
+      users[user.phone] = user;
+      localStorage.setItem('zt_users', JSON.stringify(users));
+    }
+
+    function findUser(phone) {
+      return getAllUsers()[phone] || null;
+    }
+
+    function setSession(user) {
+      currentUser = user;
+      localStorage.setItem('zt_session', user.phone);
+    }
+
+    function clearSession() {
+      currentUser = null;
+      localStorage.removeItem('zt_session');
+    }
+
+    function loadSession() {
+      const phone = localStorage.getItem('zt_session');
+      if (!phone) return null;
+      const user = findUser(phone);
+      if (!user) clearSession();
+      return user;
+    }
+
+    function updateUserUI() {
+      if (!currentUser) return;
+      document.getElementById('user-display-name').textContent = currentUser.name;
+      document.getElementById('user-display-phone').textContent = currentUser.phone;
+      document.getElementById('dash-balance').textContent = `₱ ${currentUser.balance.toFixed(2)}`;
+      renderRecentTx();
+    }
+
+    function renderRecentTx() {
+      const container = document.getElementById('recent-tx');
+      if (!currentUser.transactions.length) {
+        container.innerHTML = '<p style="color:var(--muted); text-align:center; padding:15px;">Wala pang gawain</p>';
+        return;
+      }
+      container.innerHTML = currentUser.transactions.slice(0, 3).map(tx => `
+        <div class="tx-item">
+          <div class="tx-left">
+            <div class="tx-icon">${tx.type === 'fund' ? '➕' : '💳'}</div>
+            <div>
+              <div class="tx-name">${tx.desc}</div>
+              <div class="tx-meta">${tx.date}</div>
+            </div>
           </div>
-        `).join('');
+          <div class="tx-amount ${tx.type === 'fund' ? 'positive' : 'negative'}">
+            ${tx.type === 'fund' ? '+' : '-'}₱${tx.amount.toFixed(2)}
+          </div>
+        </div>
+      `).join('');
     }
-    
-    function addFunds() {
-      const amt = prompt('Magkano ang ilalagay?');
-      if (!amt) return;
-      balance += parseFloat(amt);
-      localStorage.setItem('wallet_balance', balance);
-      updateUI();
+
+    // Signup
+    function doSignup() {
+      const name = document.getElementById('su-name').value.trim();
+      const phone = document.getElementById('su-phone').value.trim();
+      const pin = document.getElementById('su-pin').value.trim();
+      const pin2 = document.getElementById('su-pin2').value.trim();
+      const err = document.getElementById('signup-error');
+
+      if (!name || !phone || !pin || !pin2) return showError(err, 'Punan lahat ng patlang');
+      if (!/^\d{10,11}$/.test(phone.replace(/\D/g,''))) return showError(err, 'Hindi wasto ang numero');
+      if (pin.length !== 6 || !/^\d+$/.test(pin)) return showError(err, 'Ang PIN ay dapat 6 na numero');
+      if (pin !== pin2) return showError(err, 'Hindi magkatugma ang PIN');
+      if (findUser(phone)) return showError(err, 'Mayroon nang account sa numerong ito');
+
+      const user = {
+        id: Date.now(),
+        name,
+        phone,
+        pin,
+        balance: 0,
+        transactions: []
+      };
+      saveUser(user);
+      setSession(user);
+      showScreen('dashboard');
+      updateUserUI();
     }
-    
-    function sendPayment() {
-      const id = document.getElementById('recipientId').value.trim();
-      const name = document.getElementById('recipientName').value.trim();
-      const amt = parseFloat(document.getElementById('amount').value);
-      
-      if (!id || !name || !amt) return alert('Punan lahat ng patlang');
-      if (amt > 500) return alert('Hanggang ₱500 lang bawat bayad');
-      if (amt > balance) return alert('Kulang ang laman ng pitaka');
-      
-      balance -= amt;
-      transactions.unshift({
-        amount: amt,
-        name: name,
+
+    // Login Flow
+    let foundUser = null;
+    function findAccount() {
+      const phone = document.getElementById('li-phone').value.trim();
+      const err = document.getElementById('login-error');
+      if (!phone) return showError(err, 'Ilagay ang numero');
+
+      foundUser = findUser(phone);
+      if (!foundUser) return showError(err, 'Walang nakitang account sa numerong ito');
+
+      document.getElementById('pin-group').style.display = 'block';
+      document.getElementById('login-find').classList.remove('hidden');
+      document.getElementById('login-next-btn').classList.add('hidden');
+      document.getElementById('login-enter-btn').classList.remove('hidden');
+      err.classList.add('hidden');
+    }
+
+    function doLogin() {
+      const pin = document.getElementById('li-pin').value.trim();
+      const err = document.getElementById('login-error');
+      if (!foundUser) return showError(err, 'Subukan muli');
+      if (pin !== foundUser.pin) return showError(err, 'Maling PIN');
+
+      setSession(foundUser);
+      foundUser = null;
+      showScreen('dashboard');
+      updateUserUI();
+    }
+
+    function doLogout() {
+      if (confirm('Sigurado ka bang lalabas?')) {
+        clearSession();
+        foundUser = null;
+        screenStack = ['welcome'];
+        showScreen('welcome');
+      }
+    }
+
+    // Fund
+    function confirmFund() {
+      const amount = parseFloat(document.getElementById('fund-amount').value);
+      const err = document.getElementById('fund-error');
+      if (!amount || amount <= 0) return showError(err, 'Ilagay ang wastong halaga');
+
+      currentUser.balance += amount;
+      currentUser.transactions.unshift({
+        type: 'fund',
+        amount,
+        desc: 'Naglagay ng pera',
         date: new Date().toLocaleString()
       });
-      
-      localStorage.setItem('wallet_balance', balance);
-      localStorage.setItem('wallet_transactions', JSON.stringify(transactions));
-      
-      alert(`✅ Nakabayad ng ₱${amt} kay ${name}!`);
-      document.getElementById('recipientId').value = '';
-      document.getElementById('recipientName').value = '';
-      document.getElementById('amount').value = '';
-      updateUI();
+      saveUser(currentUser);
+      updateUserUI();
+      closeModal('fund');
+      alert(`✅ Matagumpay na nakapaglagay ng ₱${amount.toFixed(2)}`);
     }
-    
-    updateUI();
+
+    // Pay
+    function confirmPay() {
+      const payPhone = document.getElementById('pay-phone').value.trim();
+      const payName = document.getElementById('pay-name').value.trim();
+      const amount = parseFloat(document.getElementById('pay-amount').value);
+      const err = document.getElementById('pay-error');
+
+      if (!payPhone || !payName || !amount) return showError(err, 'Punan lahat ng patlang');
+      if (amount > 500) return showError(err, 'Hanggang ₱500 lang bawat bayad');
+      if (amount > currentUser.balance) return showError(err, 'Hindi sapat ang laman ng pitaka');
+      if (payPhone === currentUser.phone) return showError(err, 'Hindi maaaring sa sarili ipadala');
+
+      currentUser.balance -= amount;
+      currentUser.transactions.unshift({
+        type: 'pay',
+        amount,
+        desc: `Kay ${payName}`,
+        date: new Date().toLocaleString()
+      });
+      saveUser(currentUser);
+      updateUserUI();
+      closeModal('pay');
+      alert(`✅ Matagumpay na nakabayad ng ₱${amount.toFixed(2)} kay ${payName}`);
+    }
+
+    // Modals
+    function openModal(id) {
+      document.getElementById(`modal-${id}`).classList.add('active');
+      if (id === 'history') {
+        const container = document.getElementById('full-history');
+        if (!currentUser.transactions.length) {
+          container.innerHTML = '<p style="color:var(--muted); text-align:center; padding:20px;">Wala pang talaan</p>';
+        } else {
+          container.innerHTML = currentUser.transactions.map(tx => `
+            <div class="tx-item">
+              <div class="tx-left">
+                <div class="tx-icon">${tx.type === 'fund' ? '➕' : '💳'}</div>
+                <div>
+                  <div class="tx-name">${tx.desc}</div>
+                  <div class="tx-meta">${tx.date}</div>
+                </div>
+              </div>
+              <div class="tx-amount ${tx.type === 'fund' ? 'positive' : 'negative'}">
+                ${tx.type === 'fund' ? '+' : '-'}₱${tx.amount.toFixed(2)}
+              </div>
+            </div>
+          `).join('');
+        }
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(`modal-${id}`).classList.remove('active');
+    }
+
+    function showError(el, msg) {
+      el.textContent = msg;
+      el.classList.remove('hidden');
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = loadSession();
+      if (user) {
+        currentUser = user;
+        screenStack = ['dashboard'];
+        showScreen('dashboard');
+        updateUserUI();
+      }
+    });
   </script>
 </body>
 </html>
